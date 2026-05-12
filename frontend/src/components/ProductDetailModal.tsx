@@ -81,37 +81,40 @@ export const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailMo
           animate={{ y: 0 }}
           exit={{ y: "100%" }}
           transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white rounded-t-[32px] z-[70] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
+          className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white rounded-t-[32px] z-[70] overflow-hidden shadow-2xl flex flex-col max-h-[90dvh]"
         >
         
-        {/* Fixed Header Image */}
-        <div className="relative shrink-0">
-          <img 
-            src={product.image} 
-            alt={product.name} 
-            className="w-full h-[220px] object-cover bg-gray-100" 
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full text-white flex items-center justify-center hover:bg-white/30 transition-colors"
-          >
-            <X size={20} />
-          </button>
-        </div>
+        {/* Fixed Close Button */}
+        <button 
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/20 backdrop-blur-md rounded-full text-white flex items-center justify-center hover:bg-black/30 transition-colors"
+        >
+          <X size={20} />
+        </button>
 
         {/* Scrollable Content */}
-        <div className="p-5 overflow-y-auto flex-1 pb-40">
-          <div className="flex justify-between items-start mb-2">
-            <h2 className="text-[24px] font-extrabold text-gray-900 leading-tight pr-4">{product.name}</h2>
-            <p className="text-[#154e3d] font-extrabold text-[20px] whitespace-nowrap">
-              {product.price.toLocaleString('vi-VN')}<span className="text-[14px] ml-0.5">đ</span>
-            </p>
+        <div className="overflow-y-auto flex-1 pb-40 no-scrollbar">
+          {/* Header Image */}
+          <div className="relative shrink-0">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="w-full h-[220px] object-cover bg-gray-100" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           </div>
-          
-          <p className="text-gray-500 text-[14px] leading-relaxed mb-8">
-            {product.description || 'Hương vị tuyệt hảo được chuẩn bị bằng công thức đặc biệt của nhà hàng, mang lại trải nghiệm khó quên.'}
-          </p>
+
+          <div className="p-5">
+            <div className="flex justify-between items-start mb-2">
+              <h2 className="text-[24px] font-extrabold text-gray-900 leading-tight pr-4">{product.name}</h2>
+              <p className="text-[#154e3d] font-extrabold text-[20px] whitespace-nowrap">
+                {product.price.toLocaleString('vi-VN')}<span className="text-[14px] ml-0.5">đ</span>
+              </p>
+            </div>
+            
+            <p className="text-gray-500 text-[14px] leading-relaxed mb-8">
+              {product.description || 'Hương vị tuyệt hảo được chuẩn bị bằng công thức đặc biệt của nhà hàng, mang lại trải nghiệm khó quên.'}
+            </p>
 
           {/* Size Selection */}
           <div className="mb-8">
@@ -176,6 +179,7 @@ export const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailMo
               className="w-full bg-[#f8faf9] border border-gray-100 rounded-2xl p-4 text-[15px] text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#154e3d]/30 focus:border-[#154e3d]/50 resize-none h-28 transition-all"
             />
           </div>
+        </div>
         </div>
 
         {/* Fixed Bottom Action Bar */}
