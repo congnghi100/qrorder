@@ -1,11 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppLayout } from './layouts/AppLayout';
 
-// Placeholder cho các views
-const WelcomeView = () => <div>Welcome View</div>;
-const MenuView = () => <div>Menu View</div>;
-const CartView = () => <div>Cart View</div>;
-const OrderStatusView = () => <div>Order Status View</div>;
+import { WelcomeView } from './views/WelcomeView';
+import { MenuView } from './views/MenuView';
+import { CartView } from './views/CartView';
+
+const OrderStatusView = () => (
+  <div className="text-center mt-10">
+    <div className="w-20 h-20 bg-mint-50 rounded-full flex items-center justify-center mx-auto mb-4">
+      <span className="text-3xl">✅</span>
+    </div>
+    <h2 className="text-xl font-bold text-mint-500 mb-2">Đơn hàng đang xử lý</h2>
+    <p className="text-text-secondary">Nhà bếp đang chuẩn bị món cho bạn.</p>
+  </div>
+);
 
 function App() {
   return (

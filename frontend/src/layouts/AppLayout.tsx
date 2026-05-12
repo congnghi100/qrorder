@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { useCartStore } from '../store/useCartStore';
 import { ShoppingCart } from 'lucide-react';
