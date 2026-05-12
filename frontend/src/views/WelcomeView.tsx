@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../store/useCartStore';
 import { Button } from '../components/Button';
+import logo from '../assets/naviworld-logo.png';
 
 export const WelcomeView = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export const WelcomeView = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white p-6 text-center">
       <div className="w-full max-w-[240px] flex items-center justify-center mb-8">
-        <img src="/naviworld-logo.png" alt="NaviWorld Logo" className="w-full object-contain" />
+        <img src={logo} alt="NaviWorld Logo" className="w-full object-contain" />
       </div>
       <h1 className="text-2xl font-bold mb-2">Chào mừng bạn!</h1>
       <p className="text-text-secondary mb-8">Vui lòng xác nhận bàn để bắt đầu gọi món</p>
