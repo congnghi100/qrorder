@@ -122,15 +122,14 @@ Nếu khách hàng có thể tự chủ trong việc xem menu và đặt món, n
 | ID | Yêu cầu | Mô tả | Priority | Liên quan |
 |----|---------|-------|----------|-----------| 
 | BR-001 | Quản lý mã QR theo bàn | Hệ thống cho phép Admin tạo và xuất mã QR cho từng bàn dựa trên danh sách bàn thực tế từ LS Central | 🔴 Must | O1 |
-| BR-002 | Xác thực truy cập bằng mã PIN | Khách hàng phải nhập đúng mã PIN (OTP) do nhân viên cung cấp trước khi xem thực đơn | 🔴 Must | O1 |
-| BR-003 | Hiển thị số bàn xuyên suốt | Tên/số bàn luôn hiển thị trên mọi màn hình để khách xác nhận mình đang order đúng bàn | 🔴 Must | O2 |
-| BR-004 | Xem thực đơn điện tử đồng bộ từ POS | Toàn bộ menu (món ăn, giá, hình ảnh, danh mục) lấy trực tiếp từ LS Central, không cần cập nhật thủ công | 🔴 Must | O2 |
-| BR-005 | Tùy chỉnh và ghi chú món ăn | Khách được chọn các tùy chọn đi kèm (modifier) và ghi chú đặc biệt cho từng món | 🔴 Must | O3 |
-| BR-006 | Gửi order vào hệ thống POS | Đơn hàng từ khách được đẩy thẳng vào LS Central với đầy đủ thông tin bàn, món, ghi chú | 🔴 Must | O3 |
-| BR-007 | Cho phép gọi thêm món trong cùng phiên | Khách có thể tiếp tục chọn và gửi thêm món mà không cần tạo hóa đơn mới | 🔴 Must | O2 |
-| BR-008 | Theo dõi trạng thái order | Khách xem được trạng thái hiện tại của đơn hàng mà không cần hỏi nhân viên | 🟡 Should | O2 |
-| BR-009 | Nhân viên xử lý order QR trên POS | Order từ QR hiển thị trên POS với nhãn "QR Order" và số bàn để thu ngân gộp bill | 🔴 Must | O3 |
-| BR-010 | Đa ngôn ngữ Việt/Anh | Khách có thể chuyển ngôn ngữ giao diện | 🟢 Could | O1 |
+| BR-002 | Hiển thị số bàn xuyên suốt | Tên/số bàn luôn hiển thị trên mọi màn hình để khách xác nhận mình đang order đúng bàn | 🔴 Must | O2 |
+| BR-003 | Xem thực đơn điện tử đồng bộ từ POS | Toàn bộ menu (món ăn, giá, hình ảnh, danh mục) lấy trực tiếp từ LS Central, không cần cập nhật thủ công | 🔴 Must | O2 |
+| BR-004 | Tùy chỉnh và ghi chú món ăn | Khách được chọn các tùy chọn đi kèm (modifier) và ghi chú đặc biệt cho từng món | 🔴 Must | O3 |
+| BR-005 | Gửi order vào hệ thống POS | Đơn hàng từ khách được đẩy thẳng vào LS Central với đầy đủ thông tin bàn, món, ghi chú | 🔴 Must | O3 |
+| BR-006 | Cho phép gọi thêm món trong cùng phiên | Khách có thể tiếp tục chọn và gửi thêm món mà không cần tạo hóa đơn mới | 🔴 Must | O2 |
+| BR-007 | Theo dõi trạng thái order | Khách xem được trạng thái hiện tại của đơn hàng mà không cần hỏi nhân viên | 🟡 Should | O2 |
+| BR-008 | Nhân viên xử lý order QR trên POS | Order từ QR hiển thị trên POS với nhãn "QR Order" và số bàn để thu ngân gộp bill | 🔴 Must | O3 |
+| BR-009 | Đa ngôn ngữ Việt/Anh | Khách có thể chuyển ngôn ngữ giao diện | 🟢 Could | O1 |
 
 ### Chi tiết từng yêu cầu
 
@@ -141,21 +140,14 @@ Nếu khách hàng có thể tự chủ trong việc xem menu và đặt món, n
 - **Tiêu chí chấp nhận:** Mã QR khi quét sẽ mở đúng menu của đúng bàn đó.
 - **Stakeholder liên quan:** System Admin, Quản lý nhà hàng.
 
-#### BR-002: Xác thực truy cập bằng mã PIN
-- **Mô tả:** Sau khi quét QR, khách thấy màn hình chào và phải nhập mã PIN (OTP 4 số) do nhân viên cung cấp. Sai mã sẽ không vào được menu.
-- **Quy trình hiện tại (AS-IS):** Không có bước xác thực, bất kỳ ai biết URL đều vào được menu.
-- **Quy trình mong muốn (TO-BE):** Nhân viên check-in khách → Cung cấp mã PIN → Khách nhập → Vào menu.
-- **Tiêu chí chấp nhận:** Chỉ khách nhập đúng PIN mới vào được menu. Nhập sai hiển thị thông báo lỗi.
-- **Stakeholder liên quan:** Khách hàng, Nhân viên phục vụ.
-
-#### BR-004: Xem thực đơn điện tử đồng bộ từ POS
+#### BR-003: Xem thực đơn điện tử đồng bộ từ POS
 - **Mô tả:** Toàn bộ dữ liệu menu (tên, giá, mô tả, hình ảnh, danh mục) đến từ LS Central. Khi nhà hàng cập nhật giá/món trên POS, Web App tự phản ánh thay đổi mà không cần thao tác thủ công thêm.
 - **Quy trình hiện tại (AS-IS):** Menu giấy in ra, đổi giá phải in lại.
 - **Quy trình mong muốn (TO-BE):** Cập nhật một lần trên POS, tất cả kênh phản ánh ngay.
 - **Tiêu chí chấp nhận:** Thay đổi trên LS Central phản ánh trong Web App trong vòng [CẦN BỔ SUNG: thời gian cache].
 - **Stakeholder liên quan:** Quản lý nhà hàng, Nhân viên thu ngân.
 
-#### BR-006: Gửi order vào hệ thống POS
+#### BR-005: Gửi order vào hệ thống POS
 - **Mô tả:** Khi khách bấm "Gửi đơn xuống bếp", đơn hàng được đẩy vào LS Central với đầy đủ thông tin: số bàn, danh sách món, số lượng, modifier đã chọn, ghi chú riêng từng món, và nhãn "QR Order".
 - **Quy trình hiện tại (AS-IS):** Nhân viên nghe và nhập tay trên POS.
 - **Quy trình mong muốn (TO-BE):** Khách tự chọn và gửi → Order tự động vào POS và bếp.
