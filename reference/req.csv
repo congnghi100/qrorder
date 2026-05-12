@@ -1,0 +1,103 @@
+﻿REQUIREMENT TRIỂN KHAI,,
+QR CODE ORDERING TẠI BÀN – TÍCH HỢP LS CENTRAL,,
+,,
+STT,Chức năng/mục tiêu,Nội dung
+1,Mục tiêu,"Triển khai giải pháp QR Order tại bàn (Dine-in) cho khách hàng, cho phép:
+
+-Khách hàng scan QR tại bàn
+- Xem menu điện tử
+- Đặt món trực tiếp
+- Trạng thái order
+- Đơn hàng đồng bộ về LS Central
+- Nhân viên & bếp xử lý như đơn POS thông thường
+
+Giải pháp không làm gián đoạn vận hành hiện tại, có thể pilot từng cửa hàng."
+2,Phạm vi triển khai,"Áp dụng cho mô hình Dine-in
+Không yêu cầu mobile app (ưu tiên web / Web app)
+Triển khai trên nền LS Central (Hospitality) hiện có"
+3,Yêu cầu chức năng (Functional Requirements),
+3.1,QR Code & Table Management,"Hệ thống cho phép:
+
+- Generate QR Code cho từng Store + Table + Sales Type
+- QR code gắn cố định cho từng bàn
+
+Khi khách scan QR:
+
+- Hệ thống xác định chính xác cửa hàng & bàn
+- Không cần khách chọn lại location
+
+QR Session phải gắn với Table No trong LS Central"
+3.2,Menu hiển thị cho khách,"Menu hiển thị lấy trực tiếp từ LS Central, bao gồm:
+- Item
+- Modifier / Option
+- Combo / Set
+- Hình ảnh (nếu có)
+
+Menu hiển thị theo:
+- Store
+- Sales Type (QR)
+- Khung giờ (Time-based menu)
+
+Lưu ý:
+Không tạo menu riêng ngoài LS Central
+Một nguồn dữ liệu duy nhất (Single Source of Truth)"
+3.3,Đặt món,"Khách hàng có thể:
+- Chọn món
+- Chọn modifier
+- Ghi chú cho món / bill
+
+Cho phép:
+- Đặt món nhiều lần trong cùng một phiên bàn (Persist QR Session)
+- Không cần scan lại QR sau mỗi lần order"
+3.4,Trạng thái đơn hàng,"Trạng thái đơn hàng QR
+Hệ thống phải hỗ trợ tối thiểu các trạng thái:
+
+- Draft / Submitted (từ khách)
+- Pending Confirmation (Staff)
+- Confirmed
+- Cancelled (nếu nhân viên từ chối)
+
+Lưu ý: 
+Trạng thái được lưu & audit trong LS Central / POS ⭢ để truy vết khi có sự cố"
+3.5,Đồng bộ đơn hàng về LS Central,"Khi nhân viên xác nhân order của  khách:
+
+- Đơn hàng được tạo trong LS Central
+- Gắn đúng: Store/Table/Sales Type (QR Order)
+
+Đơn hiển thị tại:
+- POS
+- Kitchen Display System (KDS) hoặc Kitchen Printer
+
+Lưu ý:
+Order từ QR phải được phân biệt theo Sales Type"
+3.6,Quy trình xử lý tại POS / Kitchen,"Nhân viên:
+Nhìn thấy order QR như order thông thường tại POS có thể:
+- Thêm món
+- Gộp bill
+- Xử lý thanh toán tại quầy
+
+Bếp:
+Nhận order theo flow chuẩn hiện tại
+Không cần thao tác mới"
+3.7,Thanh toán,"Không yêu cầu bắt buộc thanh toán online ở giai đoạn đầu
+Thanh toán thực hiện:
+- Tại POS
+- Theo quy trình hiện tại của cửa hàng
+
+Có khả năng mở rộng thanh toán online ở phase sau (optional)"
+4,Yêu cầu phi chức năng (Non-Functional Requirements),
+4.1,Vận hành & ổn định,
+4.2,Trải nghiệm người dùng,"Giao diện:
+- Responsive (mobile-first)
+- Dễ sử dụng, ít thao tác
+
+Hỗ trợ:
+Ít nhất 2 ngôn ngữ (VN / EN)"
+4.3,Log & kiểm soát,"Có log / tracking cho:
+- Thời điểm order
+- Bàn
+- Store
+- Nguồn order"
+4.4,Bảo mật,"- Không yêu cầu khách đăng nhập
+- Không lưu thông tin nhạy cảm của khách trên thiết bị
+- Session QR tự timeout theo cấu hình"

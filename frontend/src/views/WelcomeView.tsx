@@ -14,8 +14,8 @@ export const WelcomeView = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white p-6 text-center">
-      <div className="w-24 h-24 bg-mint-50 rounded-full flex items-center justify-center mb-6">
-        <span className="text-4xl">👋</span>
+      <div className="w-full max-w-[240px] flex items-center justify-center mb-8">
+        <img src="/naviworld-logo.png" alt="NaviWorld Logo" className="w-full object-contain" />
       </div>
       <h1 className="text-2xl font-bold mb-2">Chào mừng bạn!</h1>
       <p className="text-text-secondary mb-8">Vui lòng xác nhận bàn để bắt đầu gọi món</p>

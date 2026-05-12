@@ -260,7 +260,7 @@ Xây dựng giải pháp Web App cho phép khách hàng tự quét mã QR đặt
 ### Screen 1: Welcome / Bàn
 
 - **Layout:** Logo nhà hàng, Số bàn, Nút "Bắt đầu gọi món".
-- **Behavior:** Khi khách hàng click nút "Bắt đầu gọi món", hệ thống sẽ hiển thị một popup (hoặc màn hình) yêu cầu nhập mã OTP (Mã PIN) do nhân viên cung cấp. Khách phải nhập đúng mã OTP thì mới được cấp quyền truy cập vào danh sách món (Screen 2).
+- **Behavior:** Khi khách hàng click nút "Bắt đầu gọi món" để truy cập vào danh sách món (Screen 2).
 
 ### Screen 2: Menu / Danh sách món
 
