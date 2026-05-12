@@ -111,8 +111,9 @@ Xây dựng giải pháp Web App cho phép khách hàng tự quét mã QR đặt
 
 | #    | Given                                                | When                                    | Then                                                                                                                                                  |
 | ---- | ---------------------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| AC-1 | Quản trị viên truy cập màn hình Quản lý Bàn | Yêu cầu xem danh sách                | Hệ thống gọi API LS Central để tải và hiển thị danh sách các bàn hiện có của nhà hàng.                                               |
+| AC-1 | Quản trị viên truy cập màn hình Quản lý Bàn | Yêu cầu xem danh sách                | Hệ thống hiển thị danh sách các bàn hiện có của nhà hàng.                                                                                 |
 | AC-2 | Có danh sách bàn hợp lệ                         | Chọn một bàn và bấm "Tạo QR Code" | Hệ thống sinh ra một mã QR Code chứa thông tin định danh của bàn đó (Store ID, Table No, v.v.) để admin có thể tải xuống và in ra. |
+| AC-3 | Quản trị viên truy cập màn hình Quản lý Bàn | Sync dữ liệu Bàn mới nhất          | Hệ thống gọi API qua LS Central để cập nhật dữ liệu bàn mới nhất                                                                          |
 
 #### US-001: Quét mã QR nhận diện bàn
 
@@ -124,10 +125,10 @@ Xây dựng giải pháp Web App cho phép khách hàng tự quét mã QR đặt
 
 **Acceptance Criteria:**
 
-| #    | Given                           | When                                 | Then                                                                                                                                      |
-| ---- | ------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| AC-1 | Khách hàng ngồi tại bàn 10 | Dùng camera quét mã QR trên bàn | Hệ thống mở trình duyệt Web App, gọi API LS Central xác thực và hiển thị đúng "Bàn 10" và Menu của cửa hàng hiện tại. |
-| AC-2 | Mã QR đã hết hạn session   | Khách hàng quét mã               | Hệ thống gọi API LS Central để cấp session mới và reset lại giỏ hàng trống.                                                   |
+| #    | Given                                                | When                                 | Then                                                                                                       |
+| ---- | ---------------------------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| AC-1 | Khách hàng ngồi tại bàn 10                      | Dùng camera quét mã QR trên bàn | Hệ thống mở trình duyệt Web App, và hiển thị đúng "Bàn 10" và Menu của cửa hàng hiện tại. |
+| AC-2 | Mã QR đã hết hạn session hoặc không có thực | Khách hàng quét mã               | Hệ thống thông báo không tìm thấy mã bàn.                                                         |
 
 ---
 
@@ -177,10 +178,10 @@ Xây dựng giải pháp Web App cho phép khách hàng tự quét mã QR đặt
 
 **Acceptance Criteria:**
 
-| #    | Given                                 | When                                              | Then                                                                                                                                              |
-| ---- | ------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| AC-1 | Giỏ hàng đã có món              | Bấm nút "Gửi Đơn"                            | Đơn hàng được đẩy về LS Central với trạng thái `Pending Confirmation`, ứng dụng chuyển sang màn hình "Theo dõi trạng thái". |
-| AC-2 | Khách đã gửi 1 order trước đó | Tiếp tục chọn thêm món và bấm "Gửi Đơn" | Món ăn mới được append (thêm) vào cùng một phiên bàn (session) hiện tại mà không tạo hóa đơn mới rời rạc.                  |
+| #    | Given                                 | When                                              | Then                                                                                                                                             |
+| ---- | ------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| AC-1 | Giỏ hàng đã có món              | Bấm nút "Gửi Đơn"                            | Đơn hàng được lưu lại ở Admin với trạng thái `Pending Confirmation`, ứng dụng chuyển sang màn hình "Theo dõi trạng thái". |
+| AC-2 | Khách đã gửi 1 order trước đó | Tiếp tục chọn thêm món và bấm "Gửi Đơn" | Món ăn mới được append (thêm) vào cùng một phiên bàn (session) hiện tại mà không tạo hóa đơn mới rời rạc.                 |
 
 ---
 
@@ -219,24 +220,24 @@ Xây dựng giải pháp Web App cho phép khách hàng tự quét mã QR đặt
 
 ## 5. Functional Requirements
 
-| ID     | Category           | Requirement                                                                                                                         | Priority | US liên quan |
-| ------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------- |
-| FR-001 | QR Generation      | Backend có API sinh QR code động chứa mã Token mã hóa (Store, Table, Type).                                                  | High     | US-001        |
-| FR-002 | Menu Sync          | Đồng bộ data Menu (Items, Prices, Modifiers, Images) từ LS Central qua API. Caching để giảm tải.                            | High     | US-002        |
-| FR-003 | Order Submission   | Gọi LS Central API để đẩy giỏ hàng. Đơn phải map đúng `Table No`.                                                     | High     | US-004        |
-| FR-004 | Order Status       | Gọi API LS Central (Polling/Webhook) để lấy trạng thái đơn (Draft -> Pending -> Confirmed). LS Central là Source of Truth. | Medium   | US-005        |
-| FR-005 | Session Management | Gọi API LS Central để khởi tạo, validate và đóng session. Session timeout do LS Central quản lý.                          | High     | US-001        |
+| ID     | Category         | Requirement                                                                                                                         | Priority | US liên quan |
+| ------ | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------- |
+| FR-001 | QR Generation    | Backend có API sinh QR code động chứa mã Token mã hóa (Store, Table, Type).                                                  | High     | US-001        |
+| FR-002 | Menu Sync        | Đồng bộ data Menu (Items, Prices, Modifiers, Images...) từ LS Central qua API. Caching để giảm tải.                         | High     | US-002        |
+| FR-003 | Order Submission | Gọi LS Central API để đẩy giỏ hàng. Đơn phải map đúng `Table No`.                                                     | High     | US-004        |
+| FR-004 | Order Status     | Gọi API LS Central (Polling/Webhook) để lấy trạng thái đơn (Draft -> Pending -> Confirmed). LS Central là Source of Truth. | Medium   | US-005        |
+| FR-005 | QR Management    | Gọi API Admin tool để khởi tạo, validate và đóng QR code. Session timeout do Admin tool quản lý.                         | High     | US-001        |
 
 ---
 
 ## 6. Non-Functional Requirements
 
-| ID      | Category     | Requirement                               | Metric   | Acceptance                                          |
-| ------- | ------------ | ----------------------------------------- | -------- | --------------------------------------------------- |
-| NFR-001 | Performance  | Thời gian tải trang ban đầu (Menu)    | < 2s     | Tối ưu hình ảnh, Caching                        |
-| NFR-002 | UX/UI        | Tương thích thiết bị                 | 100%     | Hoạt động tốt trên iOS Safari & Android Chrome |
-| NFR-003 | Security     | Không yêu cầu đăng nhập, không PII | Zero PII | Audit không chứa dữ liệu cá nhân              |
-| NFR-004 | Availability | Hoạt động 24/7                         | 99.9%    | Server uptime                                       |
+| ID      | Category     | Requirement                               | Metric   | Acceptance                                                                        |
+| ------- | ------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------- |
+| NFR-001 | Performance  | Thời gian tải trang ban đầu (Menu)    | < 2s     | Tối ưu hình ảnh, Caching                                                      |
+| NFR-002 | UX/UI        | Tương thích thiết bị                 | 100%     | Hoạt động tốt trên iOS Safari, Android Chrome và Zalo Mini App (nếu có)) |
+| NFR-003 | Security     | Không yêu cầu đăng nhập, không PII | Zero PII | Audit không chứa dữ liệu cá nhân                                            |
+| NFR-004 | Availability | Hoạt động 24/7                         | 99.9%    | Server uptime                                                                     |
 
 ---
 
@@ -277,6 +278,34 @@ Xây dựng giải pháp Web App cho phép khách hàng tự quét mã QR đặt
 ### Screen 5: Trạng thái Order
 
 - **Layout:** Header hiển thị Số Bàn đang order. Timeline trạng thái (Đã nhận đơn -> Đang chuẩn bị). Các món đã order. Nút "Gọi thêm món".
+
+### Screen 6: Màn hình Login (Admin)
+
+- **Layout:** Form đăng nhập với các trường Username, Password.
+- **Behavior:** Xác thực tài khoản của Quản trị viên/Nhân viên để truy cập vào hệ thống quản lý.
+
+### Screen 7: Màn hình Dashboard (Admin)
+
+- **Layout:** Hiển thị các thẻ thống kê tổng quan (Cards) bao gồm: Số lượng bàn, Số lượng bàn đang sử dụng, Số lượng bàn trống, Top bàn được order nhiều nhất.
+
+### Screen 8: Màn hình Danh sách Bàn (Admin)
+
+- **Layout:** Bảng danh sách tất cả các bàn trong nhà hàng, kèm theo nút "Sync dữ liệu" để đồng bộ từ hệ thống POS.
+- **Behavior:** Khi click vào một bàn cụ thể sẽ đi vào chi tiết bàn hiển thị các thông tin: Mã bàn, Tên bàn, Vị trí (Text), và Nội dung/Ghi chú. Tại đây admin có thể thực hiện tạo mã QR Code cho bàn.
+
+### Screen 9: Danh sách Order (Admin)
+
+- **Layout:** Bảng danh sách các đơn hàng theo thời gian thực. Mỗi dòng hiển thị Mã bàn, Tên bàn và Danh sách các món ăn đã order chi tiết bên trong.
+
+### Screen 10: Quản lý tài khoản đăng nhập (Admin)
+
+- **Layout:** Danh sách các tài khoản người dùng có quyền truy cập hệ thống quản trị.
+- **Behavior:** Admin cấp cao có thể thêm/sửa/xóa tài khoản. Đặc biệt cung cấp nút tác vụ "Reset password về mặc định" cho các tài khoản khi cần thiết.
+
+### Screen 11: Thông tin tài khoản đăng nhập (Profile)
+
+- **Layout:** Hiển thị thông tin cá nhân của người đang đăng nhập bao gồm: Username, Họ tên, Mã nhân viên.
+- **Behavior:** Cung cấp form cho phép người dùng tự "Thay đổi password" mới.
 
 ---
 
