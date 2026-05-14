@@ -102,7 +102,7 @@ export const BestSellerView = () => {
       </div>
       
       {items.length > 0 && (
-        <div className="fixed bottom-24 left-0 right-0 max-w-md mx-auto z-20 px-4 flex justify-end">
+        <div className="fixed bottom-24 left-0 right-0 max-w-2xl mx-auto z-20 px-4 flex justify-end">
           <button 
             onClick={() => navigate('/cart')}
             className="bg-[#599a8d] text-white px-5 py-3 rounded-full shadow-lg flex items-center gap-2 active:scale-[0.98] transition-transform"

@@ -12,9 +12,9 @@ export const AppLayout = () => {
   const currentOutlet = useOutlet();
 
   return (
-    <div className="max-w-md mx-auto bg-[#f8faf9] min-h-screen relative shadow-xl overflow-x-hidden font-sans">
+    <div className="max-w-2xl mx-auto bg-[#f8faf9] min-h-screen relative shadow-xl overflow-x-hidden font-sans">
       {/* Header */}
-      <header className="bg-[#f8faf9] px-5 py-4 flex justify-between items-center sticky top-0 z-10 bg-opacity-95 backdrop-blur-sm">
+      <header className="bg-[#f8faf9] px-5 pt-6 pb-4 flex justify-between items-center sticky top-0 z-50">
         <h1 className="text-[22px] font-bold tracking-tight text-gray-900">
           Table {tableNo || '08'} Ordering
         </h1>
@@ -47,7 +47,7 @@ export const AppLayout = () => {
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-100 flex justify-around items-center h-[80px] pb-4 px-2 z-50 rounded-t-[24px] shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
+      <nav className="fixed bottom-0 left-0 right-0 max-w-2xl mx-auto bg-white border-t border-gray-100 flex justify-around items-center h-[80px] pb-4 px-2 z-50 rounded-t-[24px] shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
         <NavItem 
           icon={<LayoutGrid size={24} />} 
           label="Menu" 

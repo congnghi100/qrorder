@@ -32,11 +32,15 @@ export const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailMo
     addToCart({
       id: Date.now().toString(),
       productId: displayProduct.id,
-      name: `${displayProduct.name} (Size ${size})`,
+      name: displayProduct.name,
       price: displayProduct.price + (size === 'L' ? 10000 : 0) + (toppings.length * 10000),
       quantity,
       image: displayProduct.image,
-      note: [toppings.join(', '), note].filter(Boolean).join(' - ')
+      note: [
+        `Size: ${size}`,
+        toppings.length > 0 ? `Thêm: ${toppings.join(', ')}` : '',
+        note ? `Ghi chú: ${note}` : ''
+      ].filter(Boolean).join(' | ')
     });
     onClose();
     // Reset state for next time
@@ -81,7 +85,7 @@ export const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailMo
           animate={{ y: 0 }}
           exit={{ y: "100%" }}
           transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white rounded-t-[32px] z-[70] overflow-hidden shadow-2xl flex flex-col max-h-[90dvh]"
+          className="fixed bottom-0 left-0 right-0 max-w-2xl mx-auto bg-white rounded-t-[32px] z-[70] overflow-hidden shadow-2xl flex flex-col max-h-[90dvh]"
         >
         
         {/* Fixed Close Button */}

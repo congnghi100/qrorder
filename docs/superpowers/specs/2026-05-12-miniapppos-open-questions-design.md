@@ -12,11 +12,11 @@ Giải quyết các vấn đề còn mở (Open Questions) trong tài liệu PRD
 - **Vấn đề:** Mã QR dán tại bàn có thể bị chụp lén để tạo order rác.
 - **Quyết định:** Sử dụng xác thực bằng yếu tố thứ 2 do nhân viên cung cấp.
 - **Chi tiết:**
-  - Nếu là Web App trình duyệt: Hệ thống sinh mã PIN dùng 1 lần (OTP/PIN), nhân viên đọc cho khách nhập vào.
+  - Nếu là Mini App trình duyệt: Hệ thống sinh mã PIN dùng 1 lần (OTP/PIN), nhân viên đọc cho khách nhập vào.
   - Nếu là Zalo Mini App: Yêu cầu xác thực bằng số điện thoại khách hàng. 
 
 ### 2. Đồng bộ trạng thái đơn hàng (Q2)
-- **Vấn đề:** Khi POS hủy món hoặc thay đổi, Web App làm sao để biết?
+- **Vấn đề:** Khi POS hủy món hoặc thay đổi, Mini App làm sao để biết?
 - **Đề xuất:** Ghi nhận 2 phương án: 
   1. Sử dụng Webhook do LS Central đẩy (Push) về Middleware (Ưu tiên số 1 - hiệu năng cao, realtime).
   2. Sử dụng Polling từ Client (Client liên tục gọi hỏi trạng thái mỗi 15s).

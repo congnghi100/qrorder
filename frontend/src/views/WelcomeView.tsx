@@ -14,7 +14,7 @@ export const WelcomeView = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white p-6 text-center">
+    <div className="max-w-2xl mx-auto flex flex-col items-center justify-center min-h-screen bg-white p-6 text-center shadow-xl relative overflow-x-hidden">
       <div className="w-full max-w-[240px] flex items-center justify-center mb-8">
         <img src={logo} alt="NaviWorld Logo" className="w-full object-contain" />
       </div>

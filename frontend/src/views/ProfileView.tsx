@@ -1,6 +1,9 @@
 import { MapPin, Phone, Settings, ChevronRight } from 'lucide-react';
 
+import { useNavigate } from 'react-router-dom';
+
 export const ProfileView = () => {
+  const navigate = useNavigate();
   
   return (
     <div className="bg-transparent flex flex-col min-h-screen pt-2">
@@ -49,10 +52,7 @@ export const ProfileView = () => {
         
         {/* Admin Link */}
         <div 
-          onClick={() => {
-             // Mock action cho nút Admin
-             alert('Chuyển đến Trang Quản lý Admin');
-          }}
+          onClick={() => navigate('/admin/login')}
           className="bg-white rounded-[24px] p-4 shadow-sm border border-gray-50 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform"
         >
           <div className="flex items-center gap-4">

@@ -70,10 +70,21 @@ export const CartView = () => {
                 {/* Product Info & Controls */}
                 <div className="flex-1 flex flex-col h-full py-1">
                   <div className="flex justify-between items-start mb-auto">
-                    <h3 className="font-bold text-[15px] text-gray-900 leading-tight pr-2">{item.name}</h3>
+                    <div className="pr-2">
+                      <h3 className="font-bold text-[15px] text-gray-900 leading-tight">{item.name}</h3>
+                      {item.note && (
+                        <div className="mt-1.5 flex flex-wrap gap-1.5">
+                          {item.note.split(' | ').map((part, idx) => (
+                            <span key={idx} className="inline-block bg-gray-100 text-gray-600 text-[11px] px-2 py-0.5 rounded-full font-medium">
+                              {part}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                     <button 
                       onClick={() => removeFromCart(item.id)}
-                      className="text-gray-300 hover:text-red-500 transition-colors p-1 -mr-1 -mt-1"
+                      className="text-gray-300 hover:text-red-500 transition-colors p-1 -mr-1 -mt-1 shrink-0"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -111,7 +122,7 @@ export const CartView = () => {
 
       {/* Checkout Footer */}
       {hasItems && (
-        <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-100 px-5 py-5 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] z-20">
+        <div className="fixed bottom-20 left-0 right-0 max-w-2xl mx-auto bg-white border-t border-gray-100 px-5 py-5 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] z-20">
           <div className="flex justify-between items-center mb-5">
             <span className="text-gray-500 font-medium text-[15px]">Tổng cộng</span>
             <span className="text-2xl font-extrabold text-[#154e3d]">

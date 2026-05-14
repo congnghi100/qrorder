@@ -1,7 +1,7 @@
 # Design Specification: Frontend Phase 1 (Customer App)
 
 ## 1. Mục tiêu (Objective)
-Xây dựng giao diện Frontend (Web App) hoàn chỉnh cho luồng trải nghiệm của khách hàng (Customer App) từ lúc quét mã QR đến khi đặt món thành công. Hệ thống bám sát `DESIGN_SYSTEM.md` đã chốt và đáp ứng danh sách tính năng màn hình (1-5) từ PRD.
+Xây dựng giao diện Frontend (Mini App) hoàn chỉnh cho luồng trải nghiệm của khách hàng (Customer App) từ lúc quét mã QR đến khi đặt món thành công. Hệ thống bám sát `DESIGN_SYSTEM.md` đã chốt và đáp ứng danh sách tính năng màn hình (1-5) từ PRD.
 
 ## 2. Phạm vi (Scope)
 Phase 1 bao gồm 5 màn hình chính:

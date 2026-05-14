@@ -2,9 +2,9 @@
 
 > **Dành cho agentic workers:** SUB-SKILL BẮT BUỘC: Sử dụng superpowers:subagent-driven-development (khuyên dùng) hoặc superpowers:executing-plans để triển khai plan này theo từng task. Các bước dùng cú pháp checkbox (`- [ ]`) để dễ theo dõi.
 
-**Mục tiêu:** Xây dựng phần Frontend (Web App) của MiniAppPOS bao gồm quản lý trạng thái giỏ hàng (Order Context) và các màn hình chính (Welcome, Menu, Modifier, Order Status) cùng với tích hợp API Middleware.
+**Mục tiêu:** Xây dựng phần Frontend (Mini App) của MiniAppPOS bao gồm quản lý trạng thái giỏ hàng (Order Context) và các màn hình chính (Welcome, Menu, Modifier, Order Status) cùng với tích hợp API Middleware.
 
-**Kiến trúc:** Web App sử dụng React, Vite, React Router DOM. Trạng thái toàn cục của giỏ hàng được quản lý qua React Context API. Giao tiếp với API Gateway (Middleware) qua Axios.
+**Kiến trúc:** Mini App sử dụng React, Vite, React Router DOM. Trạng thái toàn cục của giỏ hàng được quản lý qua React Context API. Giao tiếp với API Gateway (Middleware) qua Axios.
 
 **Tech Stack:** React, Vite, React Router DOM, Axios, CSS (Glassmorphism & Gold Accent Theme).
 

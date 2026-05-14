@@ -33,7 +33,7 @@
 
 Nhà hàng đang đối mặt với tình trạng quá tải nhân viên phục vụ trong giờ cao điểm, dẫn đến khách hàng chờ đợi lâu để gọi món và tỷ lệ sai sót order ở mức cao. Đây là vấn đề trực tiếp ảnh hưởng đến chất lượng trải nghiệm khách hàng và hiệu quả vận hành.
 
-Giải pháp đề xuất là triển khai hệ thống **QR Dine-in Ordering** — cho phép khách hàng tự quét mã QR tại bàn, xem thực đơn điện tử và gửi order thẳng vào hệ thống POS (LS Central) mà không cần thông qua nhân viên ghi chép thủ công. Hệ thống hoạt động hoàn toàn trên trình duyệt điện thoại, không yêu cầu cài đặt ứng dụng.
+Giải pháp đề xuất là triển khai hệ thống **QR Dine-in Ordering** — cho phép khách hàng tự quét mã QR tại bàn, xem thực đơn điện tử và gửi order thẳng vào hệ thống POS (LS Central) mà không cần thông qua nhân viên ghi chép thủ công. Hệ thống hoạt động dưới dạng Mini App, không yêu cầu tải về hay cài đặt ứng dụng độc lập.
 
 Kỳ vọng sau triển khai: hơn 60% khách Dine-in tự đặt món qua QR, thời gian từ lúc ngồi đến lúc gọi món giảm xuống dưới 5 phút, và sai sót order giảm 90%.
 
@@ -77,11 +77,11 @@ Nếu khách hàng có thể tự chủ trong việc xem menu và đặt món, n
 ### 5.1 ✅ Trong phạm vi (Phase 1 - MVP)
 
 1. **Quản lý mã QR theo bàn:** System Admin tạo và quản lý mã QR cho từng bàn dựa trên dữ liệu bàn từ LS Central.
-2. **Xác thực truy cập bằng mã OTP:** Khách hàng quét QR và nhập mã PIN do nhân viên cung cấp để vào menu.
+2. **Xác thực truy cập bằng Zalo Mini App:** Khách hàng mở App Zalo quét QR để truy cập vào menu nhà hàng qua ứng dụng Zalo Mini App.
 3. **Hiển thị thực đơn điện tử:** Đồng bộ danh sách món ăn, giá, hình ảnh, phân loại từ LS Central.
 4. **Tùy chỉnh món ăn:** Cho phép chọn modifier (tùy chọn) và ghi chú riêng cho từng món.
 5. **Quản lý phiên đặt hàng (Session):** Cho phép khách order nhiều lần trong cùng một lần ngồi bàn.
-6. **Gửi order về POS:** Đẩy đơn hàng từ Web App vào LS Central với đúng số bàn và Sales Type.
+6. **Gửi order về POS:** Đẩy đơn hàng từ Mini App vào LS Central với đúng số bàn và Sales Type.
 7. **Theo dõi trạng thái đơn hàng:** Khách xem được trạng thái order (Chờ xác nhận → Đã xác nhận).
 8. **Đa ngôn ngữ:** Giao diện hỗ trợ Tiếng Việt và Tiếng Anh.
 
@@ -151,10 +151,10 @@ Nếu khách hàng có thể tự chủ trong việc xem menu và đặt món, n
 
 #### BR-003: Xem thực đơn điện tử đồng bộ từ POS
 
-- **Mô tả:** Toàn bộ dữ liệu menu (tên, giá, mô tả, hình ảnh, danh mục) đến từ LS Central. Khi nhà hàng cập nhật giá/món trên POS, Web App tự phản ánh thay đổi mà không cần thao tác thủ công thêm.
+- **Mô tả:** Toàn bộ dữ liệu menu (tên, giá, mô tả, hình ảnh, danh mục) đến từ LS Central. Khi nhà hàng cập nhật giá/món trên POS, App tự phản ánh thay đổi mà không cần thao tác thủ công thêm.
 - **Quy trình hiện tại (AS-IS):** Menu giấy in ra, đổi giá phải in lại.
 - **Quy trình mong muốn (TO-BE):** Cập nhật một lần trên POS, tất cả kênh phản ánh ngay.
-- **Tiêu chí chấp nhận:** Thay đổi trên LS Central phản ánh trong Web App trong vòng [CẦN BỔ SUNG: thời gian cache].
+- **Tiêu chí chấp nhận:** Thay đổi trên LS Central phản ánh trong Mini App trong vòng [CẦN BỔ SUNG: thời gian cache].
 - **Stakeholder liên quan:** Quản lý nhà hàng, Nhân viên thu ngân.
 
 #### BR-005: Gửi order vào hệ thống POS
@@ -171,13 +171,13 @@ Nếu khách hàng có thể tự chủ trong việc xem menu và đặt món, n
 
 ### 8.1 Ràng buộc (Constraints)
 
-| #  | Ràng buộc                                                                         | Loại    | Ảnh hưởng                                                                            |
-| -- | ----------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------- |
-| C1 | Hệ thống phải tích hợp với LS Central hiện có, không được thay thế POS | Tech     | Mọi nghiệp vụ lõi (menu, session, order) phụ thuộc API LS Central                 |
-| C2 | Web App không được lưu PII của khách hàng                                   | Legal    | Không thể cá nhân hóa trải nghiệm, không loyalty trong Phase 1                  |
-| C3 | Khách hàng không cài đặt ứng dụng                                           | UX       | Phải là Web App chạy trên trình duyệt, tương thích iOS Safari & Android Chrome |
-| C4 | Giao tiếp với LS Central qua Middleware (API Gateway)                             | Security | Không gọi trực tiếp vào database POS                                               |
-| C5 | [CẦN BỔ SUNG: Ràng buộc ngân sách]                                            | Budget   | [Ảnh hưởng]                                                                          |
+| #  | Ràng buộc                                                                         | Loại    | Ảnh hưởng                                                            |
+| -- | ----------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------- |
+| C1 | Hệ thống phải tích hợp với LS Central hiện có, không được thay thế POS | Tech     | Mọi nghiệp vụ lõi (menu, session, order) phụ thuộc API LS Central |
+| C2 | App không được lưu PII của khách hàng                                       | Legal    | Không thể cá nhân hóa trải nghiệm, không loyalty trong Phase 1  |
+| C3 | Khách hàng không cài đặt ứng dụng                                           | UX       | Phải là Mini App chạy trong Zalo App                                |
+| C4 | Giao tiếp với LS Central qua Middleware (API Gateway)                             | Security | Không gọi trực tiếp vào database POS                               |
+| C5 | [CẦN BỔ SUNG: Ràng buộc ngân sách]                                            | Budget   | [Ảnh hưởng]                                                          |
 
 ### 8.2 Giả định (Assumptions)
 
@@ -185,9 +185,7 @@ Nếu khách hàng có thể tự chủ trong việc xem menu và đặt món, n
 | -- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | ------------------------- |
 | A1 | LS Central có API/Web Services để lấy danh sách bàn, menu, gửi order và tra cứu trạng thái | Toàn bộ dự án không khả thi nếu API không tồn tại | IT Lead + Team LS Central |
 | A2 | API LS Central trả về dữ liệu đủ để sinh mã QR theo bàn                                     | Phải custom thêm nếu không có Table API                | IT Lead                   |
-| A3 | Nhà hàng chấp nhận quy trình nhân viên cung cấp mã PIN cho khách check-in                   | Nếu không, cần cơ chế xác thực khác                 | Quản lý nhà hàng      |
-| A4 | Thu ngân sẽ gộp bill thủ công trên POS khi khách thanh toán                                   | Nếu cần tự động hóa, cần tính năng Phase 2         | Nhân viên Thu ngân     |
-| A5 | Khách hàng có smartphone với camera và kết nối internet                                        | Nếu không, cần phương án QR kiosk tại bàn           | [CẦN BỔ SUNG]           |
+| A4 | Khách hàng có smartphone với camera và kết nối internet                                        | Nếu không, cần phương án QR kiosk tại bàn           | [CẦN BỔ SUNG]           |
 
 ---
 
@@ -213,14 +211,14 @@ Nếu khách hàng có thể tự chủ trong việc xem menu và đặt món, n
 
 ## 10. Timeline Sơ Bộ
 
-| Phase                    | Mốc thời gian | Deliverables                       |
-| ------------------------ | --------------- | ---------------------------------- |
-| Phân tích & Thiết kế | [CẦN BỔ SUNG] | BRD, PRD, Mockup, API Spec         |
-| Phát triển (Dev)       | [CẦN BỔ SUNG] | Web App + Middleware + Admin Panel |
-| Tích hợp LS Central    | [CẦN BỔ SUNG] | API integration, end-to-end test   |
-| Testing (SIT + UAT)      | [CẦN BỔ SUNG] | Test reports, sign-off             |
-| Go-live                  | [CẦN BỔ SUNG] | Production deployment              |
-| Hypercare (1 tháng)     | [CẦN BỔ SUNG] | Monitoring, bug fix, KPI review    |
+| Phase                    | Mốc thời gian | Deliverables                        |
+| ------------------------ | --------------- | ----------------------------------- |
+| Phân tích & Thiết kế | [CẦN BỔ SUNG] | BRD, PRD, Mockup, API Spec          |
+| Phát triển (Dev)       | [CẦN BỔ SUNG] | Mini App + Middleware + Admin Panel |
+| Tích hợp LS Central    | [CẦN BỔ SUNG] | API integration, end-to-end test    |
+| Testing (SIT + UAT)      | [CẦN BỔ SUNG] | Test reports, sign-off              |
+| Go-live                  | [CẦN BỔ SUNG] | Production deployment               |
+| Hypercare (1 tháng)     | [CẦN BỔ SUNG] | Monitoring, bug fix, KPI review     |
 
 ---
 
@@ -232,13 +230,13 @@ Nếu khách hàng có thể tự chủ trong việc xem menu và đặt món, n
 | ----------- | --------------------------------------------------------------------------------------- |
 | POS         | Point of Sale — Hệ thống máy bán hàng/thu ngân (LS Central)                      |
 | LS Central  | Phần mềm POS do Microsoft/LS Retail phát triển, đang dùng tại nhà hàng         |
-| QR Code     | Mã vạch ma trận 2D, khách quét bằng camera điện thoại để mở Web App         |
-| Web App     | Ứng dụng web chạy trên trình duyệt, không cần cài đặt                        |
+| QR Code     | Mã vạch ma trận 2D, khách quét bằng camera điện thoại để mở Mini App        |
+| Mini App    | Ứng dụng nhỏ chạy bên trong Zalo, không cần tải về hay cài đặt              |
 | Session     | Phiên làm việc của một bàn, từ lúc check-in đến lúc thanh toán              |
 | Modifier    | Tùy chọn đi kèm món ăn (VD: ít đá, nhiều đường, mức chín của thịt bò) |
 | OTP / PIN   | Mã số xác thực do nhân viên cung cấp cho khách khi check-in bàn                |
 | KDS         | Kitchen Display System — Màn hình/máy in tại bếp nhận thông tin order           |
-| Middleware  | API Gateway trung gian giữa Web App và LS Central, đảm bảo bảo mật               |
+| Middleware  | API Gateway trung gian giữa Mini App và LS Central, đảm bảo bảo mật              |
 | PII         | Personally Identifiable Information — Dữ liệu định danh cá nhân nhạy cảm       |
 
 ### 11.2 Tài liệu tham khảo

@@ -1,7 +1,13 @@
 import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AppLayout } from './layouts/AppLayout';
+import { AdminLayout } from './layouts/AdminLayout';
 
 import { WelcomeView } from './views/WelcomeView';
+import { AdminLoginView } from './views/admin/AdminLoginView';
+import { AdminDashboardView } from './views/admin/AdminDashboardView';
+import { AdminTablesView } from './views/admin/AdminTablesView';
+import { AdminOrdersView } from './views/admin/AdminOrdersView';
+import { AdminProfileView } from './views/admin/AdminProfileView';
 import { MenuView } from './views/MenuView';
 import { CartView } from './views/CartView';
 import { OrdersView } from './views/OrdersView';
@@ -72,6 +78,28 @@ const AnimatedRoutes = () => {
           <Route path="/orders" element={<OrdersView />} />
           <Route path="/profile" element={<ProfileView />} />
           <Route path="/order-status" element={<OrderStatusView />} />
+        </Route>
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLoginView />} />
+        <Route 
+          path="/admin"
+          element={
+            <motion.div
+              key="admin"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <AdminLayout />
+            </motion.div>
+          }
+        >
+          <Route path="dashboard" element={<AdminDashboardView />} />
+          <Route path="tables" element={<AdminTablesView />} />
+          <Route path="orders" element={<AdminOrdersView />} />
+          <Route path="profile" element={<AdminProfileView />} />
         </Route>
       </Routes>
     </AnimatePresence>
